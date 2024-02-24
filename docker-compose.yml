@@ -1,0 +1,13 @@
+version: "3"
+services:
+    mysql:
+        container_name: "jaya_payments_api"
+        image: mysql:5.7
+        ports:
+            - "3306:3306"
+        volumes:
+            - /var/lib/mysql
+        environment:
+            MYSQL_user: root
+            MYSQL_DATABASE: jaya_api
+            MYSQL_ROOT_PASSWORD: novomysql
