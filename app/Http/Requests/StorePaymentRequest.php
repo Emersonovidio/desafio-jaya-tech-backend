@@ -12,11 +12,11 @@ class StorePaymentRequest  extends BaseFormRequest
         return [
             'transaction_amount' => 'required',
             'installments' => 'required',
+            'token' => 'required',
             'payment_method_id' => 'required',
-            'payer_identification_number' => 'required',
-            'status' => 'required',
-
-
+            'payer_email' => 'required',
+            'payer_identification_type' => 'required',
+            'payer_identification_number' => 'required'
         ];
     }
 }

@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\PaymentsController;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Payments\StorePaymentRequest;
 use App\Http\Requests\Payments\UpdatePaymentRequest;
-use App\Http\Resources\Payments\PaymentsResource;
-use App\Http\Resources\Payments\PaymentResource;
+use App\Http\Requests\Payments\StorePaymentRequest;
+use App\Http\Resources\PaymentsResource;
+use App\Http\Resources\PaymentResource;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use App\Models\Payments;
 
 class PaymentsController extends Controller
@@ -17,39 +16,38 @@ class PaymentsController extends Controller
 
     public function __construct(Payments $payments)
     {
-
         $this->payments = $payments;
     }
 
-    public function index(Request $request)
+    public function index()
     {
-        $query = $this->payments->orderBy('active', 'DESC');
+        $query = $this->payments->get();
 
-
-        $results = $query->paginate(10);
-
-        return PaymentsResource::collection($results);
+        return PaymentsResource::collection($query);
     }
 
-    public function show($uuid)
+    public function show(string $uuid)
     {
-        $quickAccess = $this->payments->findByUuid($uuid);
+        // $payment = $this->payments->findByUuid($uuid);
 
-        return new PaymentResource($quickAccess);
+        $payment = Payments::where('uuid')->firstOrFail();
+
+
+        // return $payment;
+        return new PaymentResource($payment);
     }
 
     public function store(StorePaymentRequest $request)
     {
         try {
 
-            $result = $this->payments->create($request->all());
+            $payment = $this->payments->create($request->all());
 
 
             return response()->json([
-                'message' => 'Pagamento criado com sucesso!'
-            ], 200);
+                'message' => 'Payment Created!'
+            ], 201);
         } catch (\Exception $e) {
-            Log::error($e->getMessage());
 
             return response()->json([
                 'message' => 'Falha ao criar pagamento.'
