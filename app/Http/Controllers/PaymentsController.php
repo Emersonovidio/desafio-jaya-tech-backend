@@ -82,41 +82,43 @@ class PaymentsController extends Controller
         }
     }
 
-    public function update(UpdatePaymentRequest $request, $uuid)
+    public function cancel(string $uuid)
     {
-        $result = $this->payments->findByUuid($uuid);
         $payment = Payments::whereUuid($uuid)->first();
 
         try {
-            $result->update($request->all());
-
+            $payment->update([
+                'status' => 'canceled'
+            ]);
 
             return response()->json([
-                'message' => 'Pagamento atualizado com sucesso!'
-            ], 200);
+                'message' => 'Pagamento cancelado com sucesso!'
+            ], 201);
         } catch (\Exception $e) {
 
             return response()->json([
-                'message' => 'Falha ao atualizar Pagamento.'
+                'message' => 'Falha ao cancelar Pagamento.'
             ], 500);
         }
     }
 
-    public function destroy(string $uuid)
+    public function confirm(Request $request, string $uuid)
     {
-        $result = $this->payments->findByUuid($uuid);
+        $payment = Payments::whereUuid($uuid)->first();
 
         try {
 
-            $result->delete();
+            $payment->update([
+                'status' => $request->input('status')
+            ]);
 
             return response()->json([
-                'message' => 'Pagamento excluido com sucesso!'
-            ], 200);
+                'message' => 'Pagamento confirmado com sucesso!'
+            ], 201);
         } catch (\Exception $e) {
 
             return response()->json([
-                'message' => 'Falha ao excluir Pagamento'
+                'message' => 'Falha ao confirmar pagamento'
             ], 500);
         }
     }

@@ -13,6 +13,7 @@ class Payments extends Model
     protected $table = 'payments';
 
     protected $fillable = [
+        'uuid',
         'transaction_amount',
         'installments',
         'token',

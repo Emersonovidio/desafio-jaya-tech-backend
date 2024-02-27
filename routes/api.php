@@ -17,3 +17,5 @@ use App\Http\Controllers\PaymentsController;
 Route::get('/payments', [PaymentsController::class, 'index']);
 Route::get('payments/{uuid}', [PaymentsController::class, 'show']);
 Route::post('/payments', [PaymentsController::class, 'store']);
+Route::delete('/payments/{uuid}', [PaymentsController::class, 'cancel']);
+Route::patch('/payments/{uuid}', [PaymentsController::class, 'confirm']);
