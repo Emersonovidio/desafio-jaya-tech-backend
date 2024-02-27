@@ -22,15 +22,17 @@ class PaymentResource extends JsonResource
             'token' => $this->token,
             'payment_method_id' => $this->payment_method_id,
             'payer' => [
-                'payer_entity_type' => $this->payer_entity_type,
-                'payer_type' => $this->payer_type,
+                'entity_type' => $this->payer_entity_type,
+                'type' => $this->payer_type,
                 'payer_email' => $this->payer_email,
-                'payer_identification_type' => $this->payer_identification_type,
-                'payer_identification_number' => $this->payer_identification_number
+                'identification' => [
+                    'type' => $this->payer_identification_type,
+                    'number' => $this->payer_identification_number
+                ]
             ],
             'notification_url' => $this->notification_url,
             'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at
+            'updated_at' => $this->created_at,
         ];
     }
 }

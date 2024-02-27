@@ -14,6 +14,6 @@ use App\Http\Controllers\PaymentsController;
 |
 */
 
-Route::get('payments', [PaymentsController::class, 'index']);
+Route::get('/payments', [PaymentsController::class, 'index']);
 Route::get('payments/{uuid}', [PaymentsController::class, 'show']);
-Route::post('payments', [PaymentsController::class, 'store']);
+Route::post('/payments', [PaymentsController::class, 'store']);
