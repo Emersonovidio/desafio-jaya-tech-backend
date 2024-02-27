@@ -19,6 +19,7 @@ class Payments extends Model
         'payment_method_id',
         'payer_entity_type',
         'payer_type',
+        'payer_email',
         'payer_identification_type',
         'payer_identification_number',
         'notification_url',

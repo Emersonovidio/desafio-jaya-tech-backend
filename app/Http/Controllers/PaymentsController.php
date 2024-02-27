@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Payments\UpdatePaymentRequest;
-use App\Http\Requests\Payments\StorePaymentRequest;
+use App\Http\Requests\StorePaymentRequest;
 use App\Http\Resources\PaymentsResource;
 use App\Http\Resources\PaymentResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Payments;
 
 class PaymentsController extends Controller
@@ -26,32 +27,39 @@ class PaymentsController extends Controller
         return PaymentsResource::collection($query);
     }
 
-    public function show(string $uuid)
+    public function show(Payments $payments)
     {
-        // $payment = $this->payments->findByUuid($uuid);
-
-        $payment = Payments::where('uuid')->firstOrFail();
-
-
-        // return $payment;
-        return new PaymentResource($payment);
+        return new PaymentResource($payments);
     }
 
     public function store(StorePaymentRequest $request)
     {
+        DB::beginTransaction();
+
         try {
 
-            $payment = $this->payments->create($request->all());
+            $payment = Payments::create($request->only([
+                'transaction_amount',
+                'installments',
+                'token',
+                'payment_method_id',
+                'payer_email',
+                'payer_identification_type',
+                'payer_identification_number'
+            ]));
 
+
+            DB::commit();
 
             return response()->json([
                 'message' => 'Payment Created!'
+                // 'payment' => $payment
             ], 201);
         } catch (\Exception $e) {
 
             return response()->json([
                 'message' => 'Falha ao criar pagamento.'
-            ], 500);
+            ], 400);
         }
     }
 

@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PaymentsController;
 
@@ -16,5 +15,5 @@ use App\Http\Controllers\PaymentsController;
 */
 
 Route::get('payments', [PaymentsController::class, 'index']);
-Route::get('{uuid}', [PaymentsController::class, 'show']);
+Route::get('payments/{uuid}', [PaymentsController::class, 'show']);
 Route::post('payments', [PaymentsController::class, 'store']);
