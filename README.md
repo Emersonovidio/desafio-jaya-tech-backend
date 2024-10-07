@@ -18,7 +18,7 @@ $ npm install
 ## - Banco de dados
 
 
-Essa aplicação persiste seus dados no banco Mysql usando a tecnoliga docker.
+Essa aplicação persiste seus dados no banco Mysql usando a tecnologia docker.
 
 
 
