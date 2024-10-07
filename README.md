@@ -4,7 +4,7 @@
 
 ## - Descrição
 
-API REST de pagamentos de cartão de crédito, framework Laravel 8 do PHP.
+API Rest de pagamentos de cartão de crédito, framework Laravel 8 do PHP.
 
 
 
