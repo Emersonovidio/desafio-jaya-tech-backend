@@ -13,7 +13,7 @@ API REST de pagamentos de cartão de crédito, framework Laravel 8 do PHP.
 Após clonar este repositório rode o comando:
 
 ```bash
-$ npm install
+$ composer install
 ```
 ## - Banco de dados
 
